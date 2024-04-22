@@ -1,6 +1,6 @@
-FROM debian:bookworm
+FROM alpine:3.18.4
 
-RUN apt update && apt install wget -y
+RUN apk update && apk add wget
 
 RUN wget https://github.com/google/cadvisor/releases/download/v0.49.1/cadvisor-v0.49.1-linux-amd64 -O cadvisor
 

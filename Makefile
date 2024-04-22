@@ -6,7 +6,7 @@ build:
 	@sudo docker compose -f srcs/docker-compose.yml up -d --build
 
 start:
-	@sudo docker compose -f srcs/docker-compose.yml up
+	@sudo docker compose -f srcs/docker-compose.yml -d up
 
 stop:
 	@sudo docker compose -f srcs/docker-compose.yml stop
