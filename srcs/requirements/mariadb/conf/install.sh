@@ -13,8 +13,6 @@ if [ ! -d  /var/lib/mysql/mysql ]; then
 		GRANT ALL ON wordpress.* TO '$DATABASE_USER'@'%';
 		FLUSH PRIVILEGES ;
 		EOF
-else
-    echo "MariaDB is already installed"
 fi
 
 exec mariadbd --user=mysql --console

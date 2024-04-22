@@ -6,7 +6,8 @@ services:
     build: requirements/nginx
     container_name: nginx
     depends_on:
-     - wordpress
+      - wordpress
+      - adminer
     volumes:
       - wordpress:/var/www/http
     ports:
@@ -42,6 +43,57 @@ services:
     env_file:
       - .env
     restart: always
+
+  adminer:
+    image: adminer:mbaanni
+    container_name: adminer
+    build: ./requirements/bonus/adminer/
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/http
+    networks:
+      - testo
+    env_file:
+      - .env
+    restart: always
+
+  website:
+    image: website:mbaanni
+    container_name: website
+    build: ./requirements/bonus/website/
+    networks:
+      - testo
+    env_file:
+      - .env
+    restart: always
+
+
+  ftp:
+    image: ftp:mbaanni
+    container_name: ftp
+    build: ./requirements/bonus/ftp
+    volumes:
+      - wordpress:/var/www/http
+    ports:
+      - 21:21
+    networks:
+      - testo
+    env_file:
+      - .env
+    restart: always
+
+  redis:
+    image: redis:mbaanni
+    container_name: redis
+    build: ./requirements/bonus/redis/
+    volumes:
+      - wordpress:/var/www/http
+    networks:
+      - testo
+    restart: always
+
+
 
 volumes:
   wordpress:
