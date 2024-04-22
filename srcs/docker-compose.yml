@@ -93,6 +93,22 @@ services:
       - testo
     restart: always
 
+  cadvisor:
+    image: cadvisor:mbaanni
+    container_name: cadvisor
+    build: ./requirements/bonus/cadvisor/
+    ports:
+      - 8080:8080
+    depends_on:
+      - nginx
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - testo
+    restart: always
 
 
 volumes:
