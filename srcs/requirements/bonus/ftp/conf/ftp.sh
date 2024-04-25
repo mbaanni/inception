@@ -11,4 +11,4 @@ if [ ! $(cat /etc/passwd | grep "$FTP_USER:") ] ; then
     usermod -d /var/www/http/ ${FTP_USER}
 fi
 
-exec vsftpd /etc/vsftpd.conf
+exec vsftpd

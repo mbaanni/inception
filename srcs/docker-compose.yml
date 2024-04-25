@@ -6,8 +6,10 @@ services:
     build: requirements/nginx
     container_name: nginx
     depends_on:
-      - wordpress
-      - adminer
+      wordpress:
+        condition: service_healthy
+      adminer:
+        condition: service_started
     volumes:
       - wordpress:/var/www/http
     ports:
