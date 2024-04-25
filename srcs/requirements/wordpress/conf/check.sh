@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [[ $(/etc/init.d/php8.2-fpm status) ]]
+if [ -f /var/www/http/wp-config.php ]
 then
-  echo "fpm is running."
+  echo "wordpress is installed"
   exit 0
 else
-  echo "fpm is not running."
+  echo "wordpress is not installed"
   exit 1
 fi

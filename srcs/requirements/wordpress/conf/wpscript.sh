@@ -1,13 +1,11 @@
 #!/bin/sh
 
-/etc/init.d/php8.2-fpm stop
 
 while ! mariadb -hmariadb -u$DATABASE_USER -p$DATABASE_PASS $DATABASE_NAME --silent 2> /dev/null; do
 	sleep 1;
 done
 
 if [ ! -f /var/www/http/wp-config.php ]; then
-
     wp core download --locale=en_US --allow-root
     wp config create --dbname=$DATABASE_NAME --dbuser=$DATABASE_USER --dbpass=$DATABASE_PASS --dbhost=mariadb --allow-root
     wp core install --url=$WORDPRESS_URL --title=$WORDPRESS_TITLE --admin_user=$WORDPRESS_ADMIN --admin_password=$WORDPRESS_ADMIN_PASS --admin_email=$WORDPRESS_ADMIN_EMAIL --allow-root
@@ -23,6 +21,7 @@ if [ ! -f /var/www/http/wp-config.php ]; then
     wp plugin update --all --allow-root
     wp plugin install redis-cache --activate --allow-root
     wp redis enable --allow-root
+    chmod -R o+w /var/www/http/
+    chown -R www-data:www-data /var/www/http/
 fi
-/etc/init.d/php8.2-fpm start
 exec php-fpm8.2 -F
