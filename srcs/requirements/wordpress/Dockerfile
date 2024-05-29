@@ -12,5 +12,5 @@ WORKDIR /var/www/http
 
 ENTRYPOINT	["install_wordpress"]
 
-HEALTHCHECK --interval=5s --timeout=5s --retries=3\
+HEALTHCHECK --interval=5s --timeout=15s --retries=3\
     CMD [ "check" ]
